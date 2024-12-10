@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Meus apps
+    'autenticacao',
+    'anuncios',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Autenticação
+AUTH_USER_MODEL = 'autenticacao.Anunciante'
