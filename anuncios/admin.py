@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Anuncio, Foto, Seguimento
 
-# Register your models here.
+admin.site.register(Anuncio)
+admin.site.register(Foto)
+admin.site.register(Seguimento)
