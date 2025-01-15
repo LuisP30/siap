@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Anunciante(AbstractUser):
-    username = None
     email = models.EmailField('E-mail', null=False, blank=False, unique=True)
     empreendimento = models.CharField('Empreendimento', max_length=50)
     cnpj = models.CharField('CNPJ', max_length=14, null=True, blank=True, unique=True)
@@ -13,7 +12,7 @@ class Anunciante(AbstractUser):
     
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['empreendimento', 'cnpj', 'endereco', 'telefone', 'whatsapp', 'instagram']
+    REQUIRED_FIELDS = ['username', 'empreendimento', 'cnpj', 'endereco', 'telefone', 'whatsapp', 'instagram']
     
     def __str__(self):
         return self.empreendimento
