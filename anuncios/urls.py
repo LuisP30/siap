@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home, anuncio_cadastro, meus_anuncios
 
+app_name = 'anuncios'
+
 urlpatterns = [
     path('', home, name='home'),
     path('anuncio_cadastro', anuncio_cadastro, name='anuncio_cadastro'),
