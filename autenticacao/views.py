@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout, login
+from django.contrib import messages
+from django.contrib.messages import constants
 from .models import Anunciante
 
 def cadastro(request):
@@ -27,16 +29,26 @@ def cadastro(request):
             whatsapp=whatsapp,
             instagram=instagram
         )
+        messages.add_message(request, constants.SUCCESS, 'Cadastro realizado com sucesso!')
         return redirect('autenticacao:login')
     return render(request, 'cadastro_anunciante.html')
 
-def login(request):
+def logar(request):
+    if request.user.is_authenticated:
+        return redirect('anuncios:home')
     if request.method == 'POST':
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         usuario = authenticate(request, email=email, password=senha)
-        print('teste')
+        print(usuario)
         if usuario:
-            print('Autenticado')
-            pass
+            login(request, usuario)
+            return redirect('anuncios:home')
+        else:
+            messages.add_message(request, constants.ERROR, 'E-mail ou Senha incorretos')
+            return redirect('autenticacao:login')
     return render(request, 'login.html')
+
+def sair(request):
+    logout(request)
+    return redirect('anuncios:home')
