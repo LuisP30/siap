@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Anuncio
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -7,7 +8,8 @@ def home(request):
         
     })
 
-def anuncio_cadastro(request):
+@login_required(login_url='autenticacao:login')
+def cadastrar_anuncio(request):
     if request.method == 'POST':
         pass
     return render(request, 'anuncio_cadastro.html')
