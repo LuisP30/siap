@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import cadastro, logar, sair, planos
+from .views import cadastro, logar, sair
 
 app_name = 'autenticacao'
 

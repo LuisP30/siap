@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cadastro</title>
+    <title>Cadastrar anúncio</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,42 +13,54 @@
   </head>
   <body>
     <div class="container d-flex justify-content-center align-items-center">
-      <form>
+      <form method="post">
+        {% csrf_token %}
         <div class="mb-3">
           <label for="titulo" class="form-label">Título</label>
-          <input type="text" class="form-control" id="titulo" />
+          <input type="text" class="form-control" name="titulo" id="titulo" />
         </div>
         <div class="mb-3">
-          <label for="discricao">Discrição</label>
+          <label for="descricao">Descrição</label>
           <div class="form-floating">
-            <textarea class="form-control" id="discricao"></textarea>
+            <textarea class="form-control" name="descricao" id="descricao"></textarea>
           </div>
         </div>
         <div class="mb-3 d-flex">
           <div class="mx-1">
             <label for="preco-sem-desconto" class="form-label">Preço sem desconto</label>
-            <input type="number" class="form-control" id="preco-sem-desconto" />
+            <input type="number" class="form-control" name="preco-sem-desconto" id="preco-sem-desconto" />
           </div>
           <div class="mx-1">
             <label for="preco-com-desconto" class="form-label">Preço com desconto</label>
-            <input type="number" class="form-control" id="preco-com-desconto" />
+            <input type="number" class="form-control" name="preco-com-desconto" id="preco-com-desconto" />
           </div>
         </div>
         <div class="mb-3">
           <label for="seguimento">Seguimento</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected disabled>Selecione</option>
+          <select name="seguimento" class="form-select" aria-label="Default select example" required>
+              <option value="" selected disabled>Selecione</option>
+              {% for seguimento in seguimentos %}
+                  <option value="{{ seguimento.id }}">{{ seguimento.nome }}</option>
+              {% endfor %}
           </select>
+
         </div>
         <div class="mb-3">
           <label for="data-validade" class="form-label">Data de validade</label>
-          <input type="date" class="form-control" id="data-validade" />
+          <input type="date" class="form-control" name="data-validade" id="data-validade" />
         </div>
         <div class="mb-3">
           <label for="foto" class="form-label">Foto</label>
-          <input type="file" class="form-control" id="foto" />
+          <input type="file" class="form-control" name="foto" id="foto" />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        {% if messages %}
+            {% for message in messages %}
+              <br>
+              <br>
+              <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
       </form>
     </div>
     <script

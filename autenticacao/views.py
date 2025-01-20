@@ -43,7 +43,7 @@ def logar(request):
         print(usuario)
         if usuario:
             login(request, usuario)
-            return redirect('anuncios:home')
+            return redirect(request.GET.get('next', 'anuncios:home'))
         else:
             messages.add_message(request, constants.ERROR, 'E-mail ou Senha incorretos')
             return redirect('autenticacao:login')
