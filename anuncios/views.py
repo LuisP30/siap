@@ -12,7 +12,7 @@ def home(request):
 def cadastrar_anuncio(request):
     if request.method == 'POST':
         pass
-    return render(request, 'anuncio_cadastro.html')
+    return render(request, 'cadastrar_anuncio.html')
 
 def meus_anuncios(request):
     return render(request, 'meus_anuncios.html', context={

@@ -1,0 +1,35 @@
+.row{
+    margin-top: 30px;
+}
+
+.btn{
+    background-color: #7E4CA5;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #551884;
+    color: white;
+}
+
+.btn-success{
+    background-color: #48AA1B;
+    border: none;
+}
+
+.btn-success:hover{
+    background-color: #256807;
+}
+
+.btn-info{
+    background-color: #B11164;
+    border: none;
+}
+
+.btn-info:hover{
+    background-color: #72053e;
+}
+
+.title{
+    font-family: arial;
+}
