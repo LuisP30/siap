@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -10,12 +11,18 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/planos.css' %}">
   </head>
   <body>
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h1>
+                <h1 class="title">
                     Escolha seu plano e impulsione suas vendas com o SiAP!
                 </h1>
             </div>
