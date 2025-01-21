@@ -1,1 +1,1 @@
-web: gunicorn datahora.wsgi --log-file -
+web: gunicorn siap.wsgi
