@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Autenticação
 AUTH_USER_MODEL = 'autenticacao.Anunciante'
 LOGIN_URL = 'autenticacao:login'
-LOGIN_REDIRECT_URL = 'anuncios:home'
+LOGIN_REDIRECT_URL = 'anuncios:planos'
 
 # Mensagens
 MESSAGE_TAGS = {

@@ -29,6 +29,9 @@ def cadastro(request):
         endereco = request.POST.get('endereco')
         telefone = request.POST.get('telefone')
         whatsapp = request.POST.get('whatsapp')
+        if Anunciante.objects.filter(whatsapp=whatsapp).exists():
+            messages.add_message(request, constants.ERROR, 'Já existe um anunciante com este whatsapp!')
+            return render(request, 'cadastro_anunciante.html')
         instagram = request.POST.get('instagram')
         
         # Salvando anunciante no banco de dados
@@ -48,7 +51,7 @@ def cadastro(request):
 
 def logar(request):
     if request.user.is_authenticated:
-        return redirect('anuncios:home')
+        return redirect('anuncios:planos')
     if request.method == 'POST':
         email = request.POST.get('email')
         senha = request.POST.get('senha')
@@ -56,7 +59,7 @@ def logar(request):
         print(usuario)
         if usuario:
             login(request, usuario)
-            return redirect(request.GET.get('next', 'anuncios:home'))
+            return redirect(request.GET.get('next', 'anuncios:planos'))
         else:
             messages.add_message(request, constants.ERROR, 'E-mail ou Senha incorretos')
             return redirect('autenticacao:login')

@@ -35,8 +35,8 @@
           <img src="{{ anuncio.foto }}" class="card-img-top" alt="imagem produto">
           <div class="card-body">
             <h5 class="card-title">{{ anuncio.titulo }}</h5>
-            <p class="card-text fs-6 text">De R$ 25,00</p>
-            <p class="card-text fs-5 text fw-bold">R$ 20,00</p>
+            <p class="card-text fs-6 text">De R$ {{ anuncio.preco_anterior }}</p>
+            <p class="card-text fs-5 text fw-bold">R$ {{ anuncio.preco_atual }}</p>
             <p class="card-text">{{ anuncio.descricao }}</p>
 
           </div>
