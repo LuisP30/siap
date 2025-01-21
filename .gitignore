@@ -9,7 +9,7 @@ __pycache__
 **/migrations/*
 
 # Database #
-db.sqlite3
+# db.sqlite3
 
 # Backup files # 
 *.bak 
