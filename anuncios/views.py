@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Anuncio, Seguimento
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -37,6 +37,7 @@ def cadastrar_anuncio(request):
             foto=foto
         )
         messages.add_message(request, messages.constants.SUCCESS, 'Anúncio criado com sucesso')
+        return redirect('anuncios:meus_anuncios')
     seguimentos = Seguimento.objects.all()
     return render(request, 'cadastrar_anuncio.html', context={
         'seguimentos': seguimentos

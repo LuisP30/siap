@@ -46,7 +46,7 @@ def cadastro(request):
             instagram=instagram
         )
         messages.add_message(request, constants.SUCCESS, 'Cadastro realizado com sucesso!')
-        return redirect('autenticacao:login')
+        return redirect('anuncios:planos')
     return render(request, 'cadastro_anunciante.html')
 
 def logar(request):
@@ -59,7 +59,7 @@ def logar(request):
         print(usuario)
         if usuario:
             login(request, usuario)
-            return redirect(request.GET.get('next', 'anuncios:planos'))
+            return redirect(request.GET.get('next', 'anuncios:meus_anuncios'))
         else:
             messages.add_message(request, constants.ERROR, 'E-mail ou Senha incorretos')
             return redirect('autenticacao:login')
