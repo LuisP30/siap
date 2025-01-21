@@ -15,12 +15,10 @@ class Anuncio(models.Model):
     validade = models.DateField('Duração da Promoção:')
     anunciante = models.ForeignKey(Anunciante, on_delete=models.DO_NOTHING)
     seguimento = models.ForeignKey(Seguimento, on_delete=models.DO_NOTHING)
+    foto = models.ImageField(upload_to='media/')
     
     def __str__(self):
         return self.titulo
 
-class Foto(models.Model):
-    foto = models.ImageField(upload_to='media/')
-    anuncio = models.ForeignKey(Anuncio, on_delete=models.DO_NOTHING)
 
 

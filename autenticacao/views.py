@@ -10,9 +10,22 @@ def cadastro(request):
         
         # Capturando dados da requisição
         email = request.POST.get('email')
+        
+        if Anunciante.objects.filter(email=email).exists():
+            messages.add_message(request, constants.ERROR, 'Já existe um anunciante com este e-mail!')
+            return render(request, 'cadastro_anunciante.html')
+            
         password = request.POST.get('senha')
         username = request.POST.get('nome')
+        if Anunciante.objects.filter(username=username).exists():
+            messages.add_message(request, constants.ERROR, 'Já existe um anunciante com este nome!')
+            return render(request, 'cadastro_anunciante.html')
+        
         cnpj = request.POST.get('cnpj')
+        if Anunciante.objects.filter(cnpj=cnpj).exists():
+            messages.add_message(request, constants.ERROR, 'Já existe um anunciante com este CNPJ!')
+            return render(request, 'cadastro_anunciante.html')
+        
         endereco = request.POST.get('endereco')
         telefone = request.POST.get('telefone')
         whatsapp = request.POST.get('whatsapp')

@@ -1,12 +1,17 @@
 from django.shortcuts import render
-from .models import Anuncio, Seguimento, Foto
+from .models import Anuncio, Seguimento
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
 def home(request):
+    anuncios = Anuncio.objects.all()
     return render (request,'index.html', context={
+        'anuncios': anuncios
     })
+
+def planos(request):
+    return render(request, 'planos.html')
 
 @login_required(login_url='autenticacao:login')
 def cadastrar_anuncio(request):
@@ -28,11 +33,8 @@ def cadastrar_anuncio(request):
             preco_atual=preco_atual,
             validade=validade,
             anunciante=anunciante,
-            seguimento=seguimento
-        )
-        Foto.objects.create(
-            foto=foto,
-            anuncio=anuncio
+            seguimento=seguimento,
+            foto=foto
         )
         messages.add_message(request, messages.constants.SUCCESS, 'Anúncio criado com sucesso')
     seguimentos = Seguimento.objects.all()
@@ -46,3 +48,11 @@ def meus_anuncios(request):
     return render(request, 'meus_anuncios.html', context={
         'anuncios': anuncios
     })
+
+@login_required(login_url='autenticacao:login')
+def cadastrar_seguimento(request):
+    if request.method == 'POST':
+        nome_seguimento = request.POST.get('seguimento')
+        Seguimento.objects.create(nome=nome_seguimento)
+        messages.add_message(request, messages.constants.INFO, 'Um novo seguimento foi criado')
+    return render(request, 'cadastrar_seguimento.html')
