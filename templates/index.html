@@ -43,7 +43,7 @@
                 <div class="button-login">
                     <div class="btn-l">
                       {% if user.is_authenticated %}
-                        <p><a class="name-login" href="{% url 'autenticacao:logout' %}">{{ user.username }} (Sair) </a></p>
+                        <p><a class="name-login" href="{% url 'anuncios:meus_anuncios' %}">Meus anúncios </a></p>
                       {% else %}
                         <p ><a class="name-login" href="{% url 'autenticacao:login' %}">Login</a></p>
                       {% endif %}

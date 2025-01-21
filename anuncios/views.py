@@ -42,6 +42,7 @@ def cadastrar_anuncio(request):
 
 @login_required(login_url='autenticacao:login')
 def meus_anuncios(request):
+    anuncios = Anuncio.objects.filter(anunciante__id=request.user.id)
     return render(request, 'meus_anuncios.html', context={
-        
+        'anuncios': anuncios
     })
