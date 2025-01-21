@@ -1,0 +1,1 @@
+web: gunicorn datahora.wsgi --log-file -
