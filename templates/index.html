@@ -78,12 +78,12 @@
             
         {% for anuncio in anuncios %}
         <div class="card col-3" style="width: 18rem;">
-          <img src="{% static 'img/allstar.jpg' %}" class="card-img-top" alt="imagem produto">
+          <img src="{{ anuncio.foto.url }}" class="card-img-top" alt="imagem produto">
           <div class="card-body">
             <h5 class="card-title">{{ anuncio.titulo }}</h5>
             <p class="card-text fs-6 text">De R$ {{ anuncio.preco_anterior }} por</p>
             <p class="card-text fs-5 text fw-bold">R$ {{ anuncio.preco_atual }}</p>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse saepe eveniet minus, fugit iusto iste voluptatibus magnam blanditiis, pariatur accusantium, eligendi dignissimos quos! Illo ipsam maxime libero sint minus odit. </p>
+            <p class="card-text">{{ anuncio.descricao }}</p>
 
           </div>
           <div class="card-body">

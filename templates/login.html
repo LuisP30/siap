@@ -30,7 +30,7 @@
             <button type="submit" class="btn btn-primary">Entrar</button>
 
             <p class="sem-cadastro">
-              Não tem cadastro? cadastre-se
+              <a href="{% url 'autenticacao:cadastro' %}">Não tem cadastro? Cadastre-se</a>
             </p>
             
             {% if messages %}

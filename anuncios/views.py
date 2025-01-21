@@ -18,7 +18,7 @@ def cadastrar_anuncio(request):
     if request.method == 'POST':
         titulo = request.POST.get('titulo')
         descricao = request.POST.get('descricao')
-        foto = request.POST.get('foto')
+        foto = request.FILES.get('foto')
         preco_anterior = request.POST.get('preco-sem-desconto')
         preco_atual = request.POST.get('preco-com-desconto')
         validade = request.POST.get('data-validade')

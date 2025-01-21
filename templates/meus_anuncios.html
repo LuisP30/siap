@@ -32,7 +32,7 @@
     <div class="row m-5 justify-content-around">
       {% for anuncio in anuncios %}
         <div class="card col-3" style="width: 18rem;">
-          <img src="{{ anuncio.foto }}" class="card-img-top" alt="imagem produto">
+          <img src="{{ anuncio.foto.url }}" class="card-img-top" alt="imagem produto">
           <div class="card-body">
             <h5 class="card-title">{{ anuncio.titulo }}</h5>
             <p class="card-text fs-6 text">De R$ {{ anuncio.preco_anterior }}</p>
