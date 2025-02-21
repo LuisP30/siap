@@ -1,17 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import Anuncio, Seguimento
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.contrib import messages
 
 # Create your views here.
 def home(request):
+    query = request.GET.get('q', '')
     anuncios = Anuncio.objects.all()
+    print(query)
+    if query:
+        anuncios = anuncios.filter(
+            Q(titulo__icontains=query) | Q(anunciante__username__icontains=query)
+        )
     return render (request,'index.html', context={
         'anuncios': anuncios
     })
 
 def planos(request):
     return render(request, 'planos.html')
+
+# VIEWS PARA ANUNCIOS
 
 @login_required(login_url='autenticacao:login')
 def cadastrar_anuncio(request):
@@ -51,9 +60,31 @@ def meus_anuncios(request):
     })
 
 @login_required(login_url='autenticacao:login')
+def remover_anuncio(request, id):
+    anuncio = Anuncio.objects.get(id=id)
+    anuncio.delete()
+    messages.add_message(request, messages.constants.ERROR, 'Anúncio excluído')
+    return redirect('anuncios:meus_anuncios')
+
+@login_required(login_url='autenticacao:login')
+def editar_anuncio(request, id):
+    anuncio = Anuncio.objects.get(id=id)
+    anuncio.preco_anterior = "{:.2f}".format(anuncio.preco_anterior)
+    anuncio.preco_atual = "{:.2f}".format(anuncio.preco_atual)
+    seguimentos = Seguimento.objects.all()
+    print(anuncio.preco_atual)
+    return render(request, 'perfil_anuncio.html', context={
+        'anuncio': anuncio,
+        'seguimentos': seguimentos
+    })
+
+# VIEWS PARA SEGUIMENTOS
+
+@login_required(login_url='autenticacao:login')
 def cadastrar_seguimento(request):
     if request.method == 'POST':
         nome_seguimento = request.POST.get('seguimento')
         Seguimento.objects.create(nome=nome_seguimento)
         messages.add_message(request, messages.constants.INFO, 'Um novo seguimento foi criado')
+        return redirect('anuncios:cadastrar_anuncio')
     return render(request, 'cadastrar_seguimento.html')

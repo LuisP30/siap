@@ -48,10 +48,10 @@
 
           </div>
           <div class="card-body">
-            <a href="#" class="btn btn-success">
+            <a href="{% url 'anuncios:editar_anuncio' anuncio.id %}" class="btn btn-success">
              Editar
             </a>
-            <a href="#" class=" btn btn-info"> 
+            <a href="{% url 'anuncios:remover_anuncio' anuncio.id %}" class=" btn btn-info"> 
               Excluir
             </a>
           </div>
