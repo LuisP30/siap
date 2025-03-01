@@ -7,12 +7,15 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     query = request.GET.get('q', '')
-    anuncios = Anuncio.objects.all()
-    print(query)
     if query:
-        anuncios = anuncios.filter(
+        anuncios = Anuncio.objects.filter(
             Q(titulo__icontains=query) | Q(anunciante__username__icontains=query)
         )
+        return render(request,'index.html', context={
+        'anuncios': anuncios
+        })
+
+    anuncios = Anuncio.objects.all()
     return render (request,'index.html', context={
         'anuncios': anuncios
     })
@@ -69,10 +72,26 @@ def remover_anuncio(request, id):
 @login_required(login_url='autenticacao:login')
 def editar_anuncio(request, id):
     anuncio = Anuncio.objects.get(id=id)
+    seguimentos = Seguimento.objects.all()
     anuncio.preco_anterior = "{:.2f}".format(anuncio.preco_anterior)
     anuncio.preco_atual = "{:.2f}".format(anuncio.preco_atual)
-    seguimentos = Seguimento.objects.all()
-    print(anuncio.preco_atual)
+    
+    if request.method == 'POST':
+        anuncio.titulo = request.POST.get('titulo')
+        anuncio.descricao = request.POST.get('descricao')
+        anuncio.preco_anterior = request.POST.get('preco-sem-desconto')
+        anuncio.preco_atual = request.POST.get('preco-com-desconto')
+        anuncio.validade = request.POST.get('data-validade')
+        id_seguimento = request.POST.get('seguimento')   
+        anuncio.seguimento = Seguimento.objects.get(id=id_seguimento)
+        if request.FILES.get('foto'):
+            foto = request.FILES.get('foto')
+            anuncio.foto = foto
+        anuncio.save()
+            
+        messages.add_message(request, messages.constants.INFO, 'Anúncio editado com sucesso')
+        return redirect('anuncios:meus_anuncios')
+        
     return render(request, 'perfil_anuncio.html', context={
         'anuncio': anuncio,
         'seguimentos': seguimentos
