@@ -4,7 +4,7 @@ from autenticacao.models import Anunciante
 class AnuncianteCadastroSchema(ModelSchema):
     class Config(Schema.Config):
         model = Anunciante
-        model_fields = ['username', 'cnpj', 'endereco', 'telefone', 'whatsapp', 'instagram']
+        model_fields = ['username', 'email', 'cnpj', 'endereco', 'telefone', 'whatsapp', 'instagram', 'password']
         
 class AnuncianteLoginSchema(ModelSchema):
     class Config(Schema.Config):

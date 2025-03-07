@@ -3,7 +3,7 @@ from ninja.files import UploadedFile
 from ninja.responses import Response
 from autenticacao.auth import AuthBearer
 from autenticacao.models import Anunciante
-from .schemas import AnuncioCreateSchema, AnuncioResponseSchema, AnuncioPatchSchema
+from .schemas import AnuncioCreateSchema, AnuncioResponseSchema, AnuncioPatchSchema, SeguimentoSchema, SeguimentoPostSchema
 from anuncios.models import Anuncio, Seguimento
 from django.http import JsonResponse
 from typing import List, Optional
@@ -12,7 +12,7 @@ from django.db.models import Q
 anuncios_router = Router(auth=AuthBearer())
 
 # ENDPOINTS PARA CRUD DE ANÚNCIOS
-@anuncios_router.get('/', response=List[AnuncioResponseSchema], tags=['Anúncios'])
+@anuncios_router.get('/', response=List[AnuncioResponseSchema], tags=['Anúncios'], auth=None)
 def lista_anuncios(request, query: Optional[str] = None):
     if query:
         anuncios = Anuncio.objects.filter(
@@ -26,10 +26,10 @@ def lista_anuncios(request, query: Optional[str] = None):
 @anuncios_router.post('/', response=AnuncioCreateSchema, tags=['Anúncios'])
 def cria_anuncio(request, titulo: str = Form(...), descricao: str = Form(...), preco_anterior: float = Form(...),
                   preco_atual: float = Form(...), validade: str = Form(...), seguimento: int = Form(...),
-                  foto: UploadedFile = File(...)):
-
+                  foto: UploadedFile = File(...), anunciante_id: int = Form(...)):
+    print(anunciante_id)
     seguimento_obj = Seguimento.objects.get(id=seguimento)  # Tratar erro caso não encontre
-    anunciante = Anunciante.objects.get(id=1)
+    anunciante = Anunciante.objects.get(id=anunciante_id)
 
     # Criar o anuncio
     anuncio = Anuncio.objects.create(
@@ -80,3 +80,13 @@ def edita_anuncio(request, id_anuncio: int, dados: AnuncioPatchSchema = Form(...
 
     anuncio.save()
     return anuncio
+
+@anuncios_router.post('/seguimento', response=SeguimentoSchema, tags=['Seguimento'])
+def cria_seguimento(request, seguimento: SeguimentoPostSchema):
+    seguimento = Seguimento.objects.create(nome=seguimento.nome)
+    return seguimento
+
+@anuncios_router.get('/seguimento', response=List[SeguimentoSchema], tags=['Seguimento'])
+def consulta_seguimentos(request):
+    seguimentos = Seguimento.objects.all()
+    return seguimentos

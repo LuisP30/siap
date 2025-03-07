@@ -1,5 +1,5 @@
 from ninja import Schema, Form, ModelSchema
-from ..models import Anuncio
+from ..models import Anuncio, Seguimento
 from typing import Optional
 from datetime import date
 
@@ -23,3 +23,11 @@ class AnuncioPatchSchema(Schema):
     preco_atual: Optional[float] = Form(None)
     validade: Optional[date] = Form(None)
     seguimento: Optional[int] = Form(None)
+
+class SeguimentoSchema(ModelSchema):
+    class Config(Schema.Config):
+        model = Seguimento
+        model_fields = '__all__'
+    
+class SeguimentoPostSchema(Schema):
+    nome: str

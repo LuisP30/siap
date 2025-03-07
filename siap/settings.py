@@ -28,8 +28,13 @@ SECRET_KEY = 'django-insecure-*^yh4b$98)r@sh(co5fsxf%2-ex(m&-v#p-ht8*j@v*o21yve=
 DEBUG = True
 
 # ALLOWED_HOSTS = ["railway.app", ".up.railway.app"]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.18.217', '127.0.0.1']
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https?://192\.168\.18\.217:\d+$",  # Seu IP com qualquer porta
+    r"^https?://localhost:\d+$",           # localhost com qualquer porta
+    r"^https?://127\.0\.0\.1:\d+$",         # 127.0.0.1 com qualquer porta
+]
 # Application definition
 
 INSTALLED_APPS = [

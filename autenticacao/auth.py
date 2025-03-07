@@ -10,18 +10,14 @@ ALGORITMO = 'HS256'
 def gera_token(usuario):
     payload_access = {
             "id_user": usuario['id'],
-            "nome": usuario['nome'],
-            "sobrenome": usuario['sobrenome'],
-            "permissao": usuario['permissao'],
+            "username": usuario['username'],
             "type": "access",
             "iat": int(datetime.now(timezone.utc).timestamp()),
             "exp": int((datetime.now(timezone.utc) + timedelta(minutes=30)).timestamp())
         }
     payload_refresh = {
         "id_user": usuario['id'],
-        "nome": usuario['nome'],
-        "sobrenome": usuario['sobrenome'],
-        "permissao": usuario['permissao'],
+        "username": usuario['username'],
         "type": "refresh",
         "iat": int(datetime.now(timezone.utc).timestamp()),
         "exp": int((datetime.now(timezone.utc) + timedelta(hours=6)).timestamp())

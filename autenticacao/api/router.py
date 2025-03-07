@@ -38,6 +38,7 @@ def cadastro(request, usuario: AnuncianteCadastroSchema):
         username=usuario.username, 
         email=usuario.email, 
         cnpj=usuario.cnpj,
+        password=usuario.password,
         endereco=usuario.endereco,
         telefone=usuario.telefone,
         whatsapp=usuario.whatsapp,
